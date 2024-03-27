@@ -3,10 +3,10 @@ import FormComponent from './components/FormComponent'
 function App() {
   return (
     <div className="font-sans-serif p-4 mt-6" role='main'>
-      <div className="bg-neutral-white rounded-3xl rounded-br-[6rem] p-6 py-10">
+      <div className="md:max-w-xl bg-neutral-white rounded-3xl rounded-br-[6rem] p-8 py-10">
         <FormComponent />
 
-        <div className="mt-8 italic">
+        <div className="md:mt-0 mt-8 italic">
           <div className="font-bold text-5xl">
             <span className="text-primary-purple">38</span>
             <p className=" inline"> years</p>
