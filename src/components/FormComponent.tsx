@@ -13,12 +13,7 @@ const convertToNumbers = (
 
 const getCurrentDate = () => {
     const currentDate = (new Date).toLocaleDateString()
-
-    const [
-        day,
-        month,
-        year
-    ] = convertToNumbers(currentDate.split('/'))
+    const [day, month, year] = convertToNumbers(currentDate.split('/'))
 
     return {
         day,
@@ -28,9 +23,11 @@ const getCurrentDate = () => {
 }
 
 function FormComponent() {
-    const [isInvalidDay, setIsInvalidDay] = React.useState(false)
-    const [isInvalidMonth, setIsInvalidMonth] = React.useState(false)
-    const [isInvalidYear, setIsInvalidYear] = React.useState(false)
+    const [dateInput, setDateInput] = React.useState({
+        day: 0,
+        month: 0,
+        year: 0
+    })
 
     const [setDate] = React.useContext(DateContext)
     
@@ -40,39 +37,33 @@ function FormComponent() {
         const formElem = e.currentTarget as HTMLFormElement
         const formData = new FormData(formElem)
 
-        const [
+        const [day, month, year] = convertToNumbers(formData.getAll('date'))
+
+        setDateInput({
             day,
             month,
             year
-        ] = convertToNumbers(formData.getAll('date'))
+        })
 
         const currentDate = getCurrentDate()
 
-        setIsInvalidDay(false)
-        setIsInvalidMonth(false)
-        setIsInvalidYear(false)
+        const isValidDate = day <= 31 && month <= 12 && year <= currentDate.year
 
-        if (day > 31) setIsInvalidDay(true)
-        if (month > 12) setIsInvalidMonth(true)
-
-        if (year > currentDate.year) {
-            setIsInvalidYear(true)
-            return
+        if (isValidDate) {
+            setDate({
+                day: Math.abs(currentDate.day - day),
+                month: Math.abs(currentDate.month - month),
+                year: Math.abs(currentDate.year - month)
+            })
         }
-
-        setDate({
-            day: Math.abs(currentDate.day - day),
-            month: Math.abs(currentDate.month - month),
-            year: Math.abs(currentDate.year - month)
-        })
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="md:max-w-sm flex md:gap-4 gap-2">
-                <DayField error={isInvalidDay} />
-                <MonthField error={isInvalidMonth} />
-                <YearField error={isInvalidYear} />
+                <DayField day={dateInput.day} />
+                <MonthField month={dateInput.month} />
+                <YearField year={dateInput.year} />
             </div>
 
           <div className="border-t border-neutral-light-grey md:mt-8 mt-16"></div>

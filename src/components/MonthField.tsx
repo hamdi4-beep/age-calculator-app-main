@@ -1,8 +1,10 @@
 function MonthField({
-    error
+    month
 }: {
-    error: boolean
+    month: number
 }) {
+    const isInvalidMonth = month > 12
+    
     return (
         <div className="flex-grow">
             <label
@@ -20,7 +22,7 @@ function MonthField({
                 className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
             />
 
-            {error && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid month</span>}
+            {isInvalidMonth && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid month</span>}
         </div>
     )
 }

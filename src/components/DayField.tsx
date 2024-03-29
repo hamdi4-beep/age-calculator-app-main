@@ -1,8 +1,10 @@
 function DayField({
-    error
+    day
 }: {
-    error: boolean
+    day: number
 }) {
+    const isInvalidDay = day > 31
+
     return (
         <div className="flex-grow">
             <label
@@ -20,7 +22,7 @@ function DayField({
                 className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
             />
 
-            {error && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid day</span>}
+            {isInvalidDay && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid day</span>}
         </div>
     )
 }
