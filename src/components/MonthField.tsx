@@ -1,9 +1,13 @@
 function MonthField({
-    month
+    date
 }: {
-    month: number
+    date: {
+        day: number
+        month: number
+        year: number
+    }
 }) {
-    const isInvalidMonth = month > 12
+    const isInvalidMonth = date.month > 12
     
     return (
         <div className="flex-grow">

@@ -47,7 +47,8 @@ function FormComponent() {
 
         const currentDate = getCurrentDate()
 
-        const isValidDate = day <= 31 && month <= 12 && year <= currentDate.year
+        const isApril = month === 4 && day === 31
+        const isValidDate = !isApril && day <= 31 && month <= 12 && year <= currentDate.year
 
         if (isValidDate) {
             setDate({
@@ -61,9 +62,9 @@ function FormComponent() {
     return (
         <form onSubmit={handleSubmit}>
             <div className="md:max-w-sm flex md:gap-4 gap-2">
-                <DayField day={dateInput.day} />
-                <MonthField month={dateInput.month} />
-                <YearField year={dateInput.year} />
+                <DayField date={dateInput} />
+                <MonthField date={dateInput} />
+                <YearField date={dateInput} />
             </div>
 
           <div className="border-t border-neutral-light-grey md:mt-8 mt-16"></div>

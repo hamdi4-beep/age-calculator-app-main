@@ -1,9 +1,14 @@
 function DayField({
-    day
+    date
 }: {
-    day: number
+    date: {
+        day: number
+        month: number
+        year: number
+    }
 }) {
-    const isInvalidDay = day > 31
+    const isInvalidDay = date.day > 31
+    const isApril = date.month === 4 && date.day === 31
 
     return (
         <div className="flex-grow">
@@ -22,7 +27,17 @@ function DayField({
                 className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
             />
 
-            {isInvalidDay && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid day</span>}
+            {isInvalidDay && (
+                <span className='block text-primary-light-red mt-1 italic text-sm'>
+                    Must be a valid day
+                </span>
+            )}
+
+            {isApril && (
+                <span className='block text-primary-light-red mt-1 italic text-sm'>
+                    Must be a valid date
+                </span>
+            )}
         </div>
     )
 }

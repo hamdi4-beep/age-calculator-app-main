@@ -1,9 +1,13 @@
 function YearField({
-    year
+    date
 }: {
-    year: number
+    date: {
+        day: number
+        month: number
+        year: number
+    }
 }) {
-    const isInvalidYear = year > (new Date).getFullYear()
+    const isInvalidYear = date.year > (new Date).getFullYear()
     
     return (
         <div className="flex-grow">
