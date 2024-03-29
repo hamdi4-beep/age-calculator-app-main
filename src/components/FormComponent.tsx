@@ -1,38 +1,79 @@
 import arrowImg from '../assets/icon-arrow.svg'
 import React from "react"
 
-const inputFields = [
-    ['day', 'DD'],
-    ['month', 'MM'],
-    ['year', 'YYYY']
-]
+import { DateContext } from '../context/DateContext'
 
-function FormComponent({
-    handleSubmit
-}: {
-    handleSubmit: (e: React.FormEvent) => void
-}) {
+import DayField from './DayField'
+import MonthField from'./MonthField'
+import YearField from './YearField'
+
+const convertToNumbers = (
+    arr: FormDataEntryValue[] | string[]
+) => arr.map(i => +i)
+
+const getCurrentDate = () => {
+    const currentDate = (new Date).toLocaleDateString()
+
+    const [
+        day,
+        month,
+        year
+    ] = convertToNumbers(currentDate.split('/'))
+
+    return {
+        day,
+        month,
+        year
+    }
+}
+
+function FormComponent() {
+    const [isInvalidDay, setIsInvalidDay] = React.useState(false)
+    const [isInvalidMonth, setIsInvalidMonth] = React.useState(false)
+    const [isInvalidYear, setIsInvalidYear] = React.useState(false)
+
+    const [setDate] = React.useContext(DateContext)
+    
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        const formElem = e.currentTarget as HTMLFormElement
+        const formData = new FormData(formElem)
+
+        const [
+            day,
+            month,
+            year
+        ] = convertToNumbers(formData.getAll('date'))
+
+        const currentDate = getCurrentDate()
+
+        setIsInvalidDay(false)
+        setIsInvalidMonth(false)
+        setIsInvalidYear(false)
+
+        if (day > 31) setIsInvalidDay(true)
+        if (month > 12) setIsInvalidMonth(true)
+
+        if (year > currentDate.year) {
+            setIsInvalidYear(true)
+            return
+        }
+
+        setDate({
+            day: Math.abs(currentDate.day - day),
+            month: Math.abs(currentDate.month - month),
+            year: Math.abs(currentDate.year - month)
+        })
+    }
+
     return (
         <form onSubmit={handleSubmit}>
-          <div className="md:max-w-sm flex md:gap-4 gap-2">
-            {inputFields.map(([name, placeholder], i) => (
-                <div className="flex-grow" key={i}>
-                    <label
-                        htmlFor={name}
-                        className='font-semibold tracking-widest text-sm text-neutral-smokey-grey'
-                    >{name.toUpperCase()}</label>
-            
-                    <input
-                        type="number"
-                        name='date'
-                        id={name}
-                        required
-                        placeholder={placeholder}
-                        className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
-                    />
-                </div>
-            ))}
-          </div>
+            <div className="md:max-w-sm flex md:gap-4 gap-2">
+                <DayField error={isInvalidDay} />
+                <MonthField error={isInvalidMonth} />
+                <YearField error={isInvalidYear} />
+            </div>
 
           <div className="border-t border-neutral-light-grey md:mt-8 mt-16"></div>
 
