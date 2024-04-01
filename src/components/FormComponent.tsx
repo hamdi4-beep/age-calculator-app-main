@@ -52,9 +52,11 @@ function FormComponent({
 
         const currentDate = getCurrentDate()
 
+        // The April month is only 30 days. 31 is invalid.
         const isApril = month === 4 && day === 31
         const isValidDate = !isApril && day <= 31 && month <= 12 && year <= currentDate.year
 
+        // I'm not confident with this solution. I'll be going back to refactor this soon.
         const ageDate = new Date(year - 1, month - 1, day)
 
         if (isValidDate) {
@@ -77,7 +79,11 @@ function FormComponent({
           <div className="border-t border-neutral-light-grey md:mt-8 mt-16"></div>
 
           <button className="hover:bg-neutral-off-black block bg-primary-purple rounded-full p-5 -mt-8 mx-auto md:ml-auto md:mr-0">
-              <img src={arrowImg} className='w-6' alt="" />
+              <img
+                src={arrowImg}
+                className='w-6'
+                alt="an arrow pointing down for submitting the form"
+            />
           </button>
         </form>
     )
