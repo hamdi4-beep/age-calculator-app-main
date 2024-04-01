@@ -23,7 +23,7 @@ function MonthField({
                 min='2'
                 required
                 placeholder='MM'
-                className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
+                className="focus:outline-none focus:border-primary-purple md:w-28 block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
             />
 
             {isInvalidMonth && <span className='block text-primary-light-red mt-1 italic text-sm'>Must be a valid month</span>}

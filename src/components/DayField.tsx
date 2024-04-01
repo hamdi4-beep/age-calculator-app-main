@@ -24,7 +24,7 @@ function DayField({
                 min='2'
                 required
                 placeholder='DD'
-                className="focus:outline-none focus:border-primary-purple block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
+                className="focus:outline-none focus:border-primary-purple md:w-28 block border border-neutral-light-grey rounded-lg w-20 font-bold mt-1 p-3 px-4"
             />
 
             {isInvalidDay && (
