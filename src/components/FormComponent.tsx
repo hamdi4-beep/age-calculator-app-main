@@ -6,6 +6,8 @@ import DayField from './DayField'
 import MonthField from'./MonthField'
 import YearField from './YearField'
 
+import { DateObject } from "../types/DateType"
+
 const convertToNumbers = (
     arr: FormDataEntryValue[] | string[]
 ) => arr.map(i => +i)
@@ -24,11 +26,7 @@ const getCurrentDate = () => {
 function FormComponent({
     updateDate
 }: {
-    updateDate: React.Dispatch<React.SetStateAction<{
-        day: number
-        month: number
-        year: number
-    }>>
+    updateDate: (arg0: DateObject) => void
 }) {
     const [dateInput, setDateInput] = React.useState({
         day: 0,
