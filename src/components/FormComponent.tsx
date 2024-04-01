@@ -1,7 +1,6 @@
-import arrowImg from '../assets/icon-arrow.svg'
 import React from "react"
 
-import { DateContext } from '../context/DateContext'
+import arrowImg from '../assets/images/icon-arrow.svg'
 
 import DayField from './DayField'
 import MonthField from'./MonthField'
@@ -22,14 +21,20 @@ const getCurrentDate = () => {
     }
 }
 
-function FormComponent() {
+function FormComponent({
+    updateDate
+}: {
+    updateDate: React.Dispatch<React.SetStateAction<{
+        day: number
+        month: number
+        year: number
+    }>>
+}) {
     const [dateInput, setDateInput] = React.useState({
         day: 0,
         month: 0,
         year: 0
     })
-
-    const [setDate] = React.useContext(DateContext)
     
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -53,7 +58,7 @@ function FormComponent() {
         const ageDate = new Date(year - 1, month - 1, day)
 
         if (isValidDate) {
-            setDate({
+            updateDate({
                 day: Math.abs(currentDate.day - ageDate.getDay()),
                 month: Math.abs((currentDate.month - ageDate.getMonth()) + 1),
                 year: Math.abs((currentDate.year - year) - 1)

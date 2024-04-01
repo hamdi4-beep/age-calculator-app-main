@@ -1,8 +1,6 @@
 import * as React from 'react'
 import FormComponent from "./FormComponent"
 
-import { DateContext } from '../context/DateContext'
-
 function AppContainer() {
     const [date, setDate] = React.useState({
         day: 0,
@@ -12,9 +10,7 @@ function AppContainer() {
 
     return (
         <div className="md:max-w-xl md:mx-auto bg-neutral-white rounded-3xl rounded-br-[6rem] p-8 py-10">
-            <DateContext.Provider value={[setDate]}>
-                <FormComponent />
-            </DateContext.Provider>
+            <FormComponent updateDate={setDate} />
 
             <div className="md:mt-0 mt-8 italic">
                 <div className="font-bold text-5xl">
