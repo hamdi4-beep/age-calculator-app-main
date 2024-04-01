@@ -50,11 +50,13 @@ function FormComponent() {
         const isApril = month === 4 && day === 31
         const isValidDate = !isApril && day <= 31 && month <= 12 && year <= currentDate.year
 
+        const ageDate = new Date(year - 1, month - 1, day)
+
         if (isValidDate) {
             setDate({
-                day: Math.abs(currentDate.day - day),
-                month: Math.abs(currentDate.month - month),
-                year: Math.abs(currentDate.year - month)
+                day: Math.abs(currentDate.day - ageDate.getDay()),
+                month: Math.abs((currentDate.month - ageDate.getMonth()) + 1),
+                year: Math.abs((currentDate.year - year) - 1)
             })
         }
     }
