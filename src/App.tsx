@@ -1,13 +1,26 @@
-import AppContainer from "./components/AppContainer"
+import Form from "./components/Form"
+
 
 function App() {
   return (
-    <div className="font-sans-serif p-4 mt-6" role='main'>
-      <AppContainer />
+    <div role="main" className="font-sans-serif h-screen bg-off-white flex items-center justify-center">
+      <div className="md:max-w-xl lg:w-[45%] bg-white p-8 rounded-xl rounded-br-[10rem] flex-grow-1">
+        <Form />
 
-      <div className="text-center mt-4">
-        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-        Coded by <a href="https://www.frontendmentor.io/profile/hamdi4-beep" className="text-indigo-500">Hamdi Kamel</a>.
+        <h2 className='text-6xl font-black italic'>
+          <span className='text-primary-purple'>38 </span>
+          years
+        </h2>
+
+        <h2 className='text-6xl font-black italic'>
+          <span className='text-primary-purple'>3 </span>
+          months
+        </h2>
+
+        <h2 className='text-6xl font-black italic'>
+          <span className='text-primary-purple'>26 </span>
+          days
+        </h2>
       </div>
     </div>
   )
