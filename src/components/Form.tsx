@@ -13,9 +13,9 @@ function Form() {
             <InputField name="year" />
           </div>
 
-          <div className='mt-8 border-t border-neutral-light-grey'></div>
+          <div className='md:mt-8 mt-16 border-t border-neutral-light-grey'></div>
 
-          <button className='block bg-primary-purple p-4 rounded-full ml-auto -mt-8'>
+          <button className='hover:bg-black block bg-primary-purple p-4 rounded-full md:ml-auto md:mr-0  mx-auto md:-mt-8 md:mb-0 -mt-8 mb-8'>
             <img
               className='w-9'
               src={iconArrowImg}
