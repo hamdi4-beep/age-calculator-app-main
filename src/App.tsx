@@ -1,14 +1,12 @@
 import * as React from 'react'
 
 import Form from "./components/Form"
+
 import { UpdateDateT } from './types/UpdateDate'
+import { DateT } from './types/DateType'
 
 function App() {
-  const [date, setDate] = React.useState<{
-    day: FormDataEntryValue|number,
-    month: FormDataEntryValue|number,
-    year: FormDataEntryValue|number
-  }>({
+  const [date, setDate] = React.useState<DateT>({
     day: 1,
     month: 1,
     year: 1000
