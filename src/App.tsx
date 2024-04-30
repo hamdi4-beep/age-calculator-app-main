@@ -21,17 +21,17 @@ function App() {
         <Form updateDate={updateDate} />
 
         <h2 className='md:text-6xl text-5xl font-black italic'>
-          <span className='text-primary-purple'>38 </span>
+          <span className='text-primary-purple'>{date.year + ' '}</span>
           years
         </h2>
 
         <h2 className='md:text-6xl text-5xl font-black italic'>
-          <span className='text-primary-purple'>3 </span>
+          <span className='text-primary-purple'>{date.month + ' '}</span>
           months
         </h2>
 
         <h2 className='md:text-6xl text-5xl font-black italic'>
-          <span className='text-primary-purple'>26 </span>
+          <span className='text-primary-purple'>{date.day + ' '}</span>
           days
         </h2>
       </div>

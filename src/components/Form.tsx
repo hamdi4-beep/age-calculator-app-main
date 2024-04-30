@@ -11,6 +11,8 @@ function Form({
   updateDate: UpdateDateT
 }) {
     const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        
         const formElem = e.currentTarget as HTMLFormElement
 
         const [
@@ -19,13 +21,17 @@ function Form({
           [, year]
         ] = new FormData(formElem)
 
+        if (
+          +day > 31 &&
+          +month > 12 &&
+          +year > (new Date).getFullYear()
+        ) return false
+
         updateDate({
           day,
           month,
           year
         })
-
-        e.preventDefault()
     }
 
     return (
