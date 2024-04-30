@@ -1,12 +1,35 @@
+import * as React from 'react'
+import { UpdateDateT } from '../types/UpdateDate';
+
 import InputField from './InputField';
 
 import iconArrowImg from '../assets/images/icon-arrow.svg';
 
-function Form() {
-    const handleSubmit = (e: React.FormEvent) => e.preventDefault()
+function Form({
+  updateDate
+}: {
+  updateDate: UpdateDateT
+}) {
+    const handleSubmit = (e: React.FormEvent) => {
+        const formElem = e.currentTarget as HTMLFormElement
+
+        const [
+          [, day],
+          [, month],
+          [, year]
+        ] = new FormData(formElem)
+
+        updateDate({
+          day,
+          month,
+          year
+        })
+
+        e.preventDefault()
+    }
 
     return (
-        <form action="#" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="flex gap-6">
             <InputField name="day" />
             <InputField name="month" />
