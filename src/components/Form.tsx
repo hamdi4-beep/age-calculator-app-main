@@ -26,13 +26,14 @@ function Form({
 
         const isApril = +month === 4 && +day === 31
 
-        setValidations(() => ({
+        setValidations({
           isInvalidDay: (+day > 31 || isApril) ? true : false,
           isInvalidMonth: +month > 12 ? true : false,
           isInvalidYear: +year > (new Date).getFullYear() ? true : false
-        }))
+        })
 
         if (
+          isApril ||
           validations.isInvalidDay ||
           validations.isInvalidMonth ||
           validations.isInvalidYear
