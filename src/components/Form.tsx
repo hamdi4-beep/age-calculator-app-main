@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { UpdateDateT } from '../types/UpdateDate';
 
-import InputField from './InputField';
+import InputFields from './InputFields';
 
 import iconArrowImg from '../assets/images/icon-arrow.svg';
 
@@ -10,6 +10,10 @@ function Form({
 }: {
   updateDate: UpdateDateT
 }) {
+    const [errorStatus, setErrorStatus] = React.useState({
+      error: ''
+    })
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         
@@ -21,11 +25,20 @@ function Form({
           [, year]
         ] = new FormData(formElem)
 
+        const isApril = +month === 4 && +day === 31
+
         if (
           +day > 31 &&
           +month > 12 &&
-          +year > (new Date).getFullYear()
-        ) return false
+          +year > (new Date).getFullYear() ||
+          isApril
+        ) {
+          setErrorStatus({
+            error: 'Invalid Date'
+          })
+
+          return false
+        }
 
         updateDate({
           day,
@@ -36,11 +49,7 @@ function Form({
 
     return (
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-6">
-            <InputField name="day" />
-            <InputField name="month" />
-            <InputField name="year" />
-          </div>
+          <InputFields error={errorStatus.error} />
 
           <div className='md:mt-8 mt-16 border-t border-neutral-light-grey'></div>
 

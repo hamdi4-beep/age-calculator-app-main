@@ -7,9 +7,9 @@ import { DateT } from './types/DateType'
 
 function App() {
   const [date, setDate] = React.useState<DateT>({
-    day: 1,
-    month: 1,
-    year: 1000
+    day: '--',
+    month: '--',
+    year: '--'
   })
 
   const updateDate: UpdateDateT = (newDate) => setDate(newDate)
