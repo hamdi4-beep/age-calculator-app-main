@@ -1,5 +1,7 @@
 import * as React from 'react'
+
 import { UpdateDateT } from '../types/UpdateDate';
+import { ValidationT } from '../types/ValidationType';
 
 import InputFields from './InputFields';
 
@@ -10,35 +12,31 @@ function Form({
 }: {
   updateDate: UpdateDateT
 }) {
-    const [errorStatus, setErrorStatus] = React.useState({
-      error: ''
+    const [validations, setValidations] = React.useState<ValidationT>({
+      isInvalidDay: false,
+      isInvalidMonth: false,
+      isInvalidYear: false
     })
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         
         const formElem = e.currentTarget as HTMLFormElement
-
-        const [
-          [, day],
-          [, month],
-          [, year]
-        ] = new FormData(formElem)
+        const [[, day], [, month], [, year]] = new FormData(formElem)
 
         const isApril = +month === 4 && +day === 31
 
-        if (
-          +day > 31 &&
-          +month > 12 &&
-          +year > (new Date).getFullYear() ||
-          isApril
-        ) {
-          setErrorStatus({
-            error: 'Invalid Date'
-          })
+        setValidations(() => ({
+          isInvalidDay: (+day > 31 || isApril) ? true : false,
+          isInvalidMonth: +month > 12 ? true : false,
+          isInvalidYear: +year > (new Date).getFullYear() ? true : false
+        }))
 
-          return false
-        }
+        if (
+          validations.isInvalidDay ||
+          validations.isInvalidMonth ||
+          validations.isInvalidYear
+        ) return false
 
         updateDate({
           day,
@@ -49,7 +47,7 @@ function Form({
 
     return (
         <form onSubmit={handleSubmit}>
-          <InputFields error={errorStatus.error} />
+          <InputFields errors={validations} />
 
           <div className='md:mt-8 mt-16 border-t border-neutral-light-grey'></div>
 

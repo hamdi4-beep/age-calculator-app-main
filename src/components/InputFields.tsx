@@ -3,23 +3,28 @@
 import InputField from "./InputField"
 
 function InputFields({
-    error
-}: {
-    error: string
+    ...props
 }) {
-
+    const {errors} = props
+    
     return (
         <div className="flex gap-6">
             <InputField name='day'>
-                <p>{error}</p>
+                {errors.isInvalidDay && (
+                    <p>Invalid Day</p>
+                )}
             </InputField>
 
             <InputField name='month'>
-                <p>{error}</p>
+                {errors.isInvalidMonth && (
+                    <p>Invalid Month</p>
+                )}
             </InputField>
 
             <InputField name='year'>
-                <p>{error}</p>
+                {errors.isInvalidYear && (
+                    <p>Invalid Year</p>
+                )}
             </InputField>
         </div>
     )
